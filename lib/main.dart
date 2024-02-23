@@ -1,16 +1,14 @@
-import 'package:coutertest/pages/home_pages.dart';
 import 'package:flutter/material.dart';
+import 'pages/home_pages.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Material App',
-      home: HomePage(),
+      home: LoginPage(), // Usando la clase LoginPage desde home_pages.dart
     );
   }
 }
