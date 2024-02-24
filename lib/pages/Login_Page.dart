@@ -1,8 +1,20 @@
-
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: LoginPage(),
+    );
+  }
+}
+
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -11,7 +23,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Stack(
         children: [
           Fondo(),
@@ -23,23 +35,24 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 class Fondo extends StatelessWidget {
-  const Fondo({super.key});
+  const Fondo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-        colors: [Colors.blue.shade300, Colors.blue],
-        begin: Alignment.centerRight,
-        end: Alignment.centerLeft,
-      )),
+        gradient: LinearGradient(
+          colors: [Colors.blue.shade300, Colors.blue],
+          begin: Alignment.centerRight,
+          end: Alignment.centerLeft,
+        ),
+      ),
     );
   }
 }
 
 class Contenido extends StatefulWidget {
-  const Contenido({super.key});
+  const Contenido({Key? key}) : super(key: key);
 
   @override
   State<Contenido> createState() => _ContenidoState();
@@ -48,7 +61,7 @@ class Contenido extends StatefulWidget {
 class _ContenidoState extends State<Contenido> {
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -85,7 +98,7 @@ class _ContenidoState extends State<Contenido> {
 }
 
 class Datos extends StatefulWidget {
-  const Datos({super.key});
+  const Datos({Key? key}) : super(key: key);
 
   @override
   State<Datos> createState() => _DatosState();
@@ -144,12 +157,10 @@ class _DatosState extends State<Datos> {
               hintText: 'Contraseña',
               suffixIcon: IconButton(
                 icon: const Icon(Icons.remove_red_eye_outlined),
-                onPressed: () => {
+                onPressed: () {
                   setState(() {
-                    showPassword == true
-                        ? showPassword = true
-                        : showPassword = false;
-                  }),
+                    showPassword = !showPassword;
+                  });
                 },
               ),
             ),
@@ -165,45 +176,41 @@ class _DatosState extends State<Datos> {
   }
 }
 
-class Remember extends StatefulWidget {
-  const Remember({super.key});
-
-  @override
-  State<Remember> createState() => _RememberState();
-}
-
-class _RememberState extends State<Remember> {
-  bool ischecked = true;
+class Remember extends StatelessWidget {
+  const Remember({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Checkbox(
-            value: ischecked,
-            onChanged: (value) => {
-                  setState(() => ischecked == false
-                      ? ischecked = true
-                      : ischecked = false),
-                }),
-        const Text(
-          'Recuerdame',
+          value: false,
+          onChanged: (value) {},
+        ),
+        Text(
+          'Recuérdame',
           style: TextStyle(fontSize: 12),
         ),
-        const Spacer(),
+        Spacer(),
         TextButton(
-            onPressed: () => {},
-            child: const Text(
-              '¿Olvido su contraseña?',
-              style: TextStyle(fontSize: 12),
-            )),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ResetPasswordPage()),
+            );
+          },
+          child: Text(
+            '¿Olvidó su contraseña?',
+            style: TextStyle(fontSize: 12),
+          ),
+        ),
       ],
     );
   }
 }
 
 class Botones extends StatelessWidget {
-  const Botones({super.key});
+  const Botones({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -213,13 +220,13 @@ class Botones extends StatelessWidget {
           width: double.infinity,
           height: 50,
           child: ElevatedButton(
-            onPressed: () => {},
+            onPressed: () {},
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(
                 const Color(0xff142047),
               ),
             ),
-            child: const Text('Iniciar Sesion',
+            child: const Text('Iniciar Sesión',
                 style: TextStyle(color: Colors.white)),
           ),
         ),
@@ -235,9 +242,9 @@ class Botones extends StatelessWidget {
           width: double.infinity,
           height: 50,
           child: OutlinedButton(
-              onPressed: () => {},
+              onPressed: () {},
               child: const Text(
-                'Gugul',
+                'Google',
                 style: TextStyle(
                   color: Color(0xff142047),
                   fontWeight: FontWeight.bold,
@@ -253,9 +260,9 @@ class Botones extends StatelessWidget {
           width: double.infinity,
           height: 50,
           child: OutlinedButton(
-              onPressed: () => {},
+              onPressed: () {},
               child: const Text(
-                'Feisbuk',
+                'Facebook',
                 style: TextStyle(
                   color: Color(0xff142047),
                   fontWeight: FontWeight.bold,
@@ -273,18 +280,32 @@ class Botones extends StatelessWidget {
 }
 
 class Privacidad extends StatelessWidget {
-  const Privacidad({super.key});
+  const Privacidad({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: TextButton(
-        onPressed: () => {},
-        child: const Text('Poitica de privacidad',
+        onPressed: () {},
+        child: const Text('Política de privacidad',
             style: TextStyle(
               color: Colors.white,
               fontSize: 12,
             )),
+      ),
+    );
+  }
+}
+
+class ResetPasswordPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Restablecer Contraseña'),
+      ),
+      body: Center(
+        child: Text('Página para recuperar tu contraseña'),
       ),
     );
   }
